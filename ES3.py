@@ -136,3 +136,19 @@ def evento_extremo(dataframe, variavel = 'Hsig', jf = True, jc = True):
         jump_flag(dataframe, variavel, desvpad)
     if jc:
         jump_crisis(dataframe, variavel, desvpad)
+        
+        
+        
+def recorta_serie_temporal(datas, dataframe):
+    dfs = [] # lista pra appendar todos os dataframes
+    for i in range(len(datas)):
+        if i == 0:
+            serie = dataframe[:datas[0][0]]
+        elif i == len(datas)-1:
+            serie_extra = dataframe[datas[i-1][1]:datas[i][0]]
+            serie = dataframe[datas[i][1]:]
+            dfs.append(serie_extra)
+        else: 
+            serie = dataframe[datas[i-1][1]:datas[i][0]]
+        dfs.append(serie)
+    return(dfs)
